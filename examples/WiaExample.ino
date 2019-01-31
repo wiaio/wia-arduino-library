@@ -1,4 +1,4 @@
-#include "wia.h"
+#include <Wia.h>
 #include <Arduino.h>
 #include <WiFi.h>
 
@@ -29,6 +29,6 @@ void setup() {
 }
 
 void loop() {
-    wia.create_event("hello-wia", "");
+    wia.createEvent("hello-wia", "");
     delay(5000);
 }
