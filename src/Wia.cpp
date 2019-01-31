@@ -2,9 +2,6 @@
 #include <Arduino.h>
 #include <HTTPClient.h>
 #include <Preferences.h>
-#include "nvs.h"
-#include "nvs_flash.h"
-#include "esp_system.h"
 
 Wia::Wia() {}
 
