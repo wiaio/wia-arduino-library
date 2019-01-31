@@ -14,21 +14,15 @@ Wia::Wia(String access_token) {
 
 String Wia::getAccessToken() {
   if (_access_token == NULL) {
-    esp_err_t err = nvs_flash_init();
+    Preferences preferences;
 
-    if (err == ESP_OK) {
-      Preferences preferences;
+    preferences.begin("storage", true);
+    _access_token = preferences.getString("secret_key");
 
-      preferences.begin("storage", true);
-      _access_token = preferences.getString("secret_key");
-
-      if (_access_token != NULL) {
-        printf("Could not get access token.\n");
-      }
-      preferences.end();
-    } else {
-      printf("Error with nvs_flash_init (%s) !\n", esp_err_to_name(err));
+    if (_access_token != NULL) {
+      printf("Could not get access token.\n");
     }
+    preferences.end();
   }
 
   return _access_token;
