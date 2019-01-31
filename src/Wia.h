@@ -1,16 +1,15 @@
-
-
 #ifndef __WIA_H
 #define __WIA_H
 
-#include <Arduino.h>
+#include "Arduino.h"
 
-class Wia{
+class Wia {
 
 public:
 
   Wia();
-  Wia(String);
+  Wia(String access_token);
+
   int createEvent(String);
   int createEvent(String, String);
   int createEvent(String, int);
@@ -20,6 +19,7 @@ public:
   int createEvent(char*, double);
 
 private:
+  String getAccessToken();
   String _access_token;
 };
 
