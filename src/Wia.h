@@ -18,6 +18,8 @@ public:
   int createEvent(char*, int);
   int createEvent(char*, double);
 
+  String getLatestDeploymentId();
+
 private:
   String getAccessToken();
   String _access_token;

@@ -77,7 +77,7 @@ int Wia::createEvent(String name, String data) {
   return httpCode;
 }
 
-String Wia::getLatestDeploymentId(String name, String data) {
+String Wia::getLatestDeploymentId() {
   HTTPClient http;
 
   http.begin("http://api.wia.io/v1/firmware/latestDeploymentId");
@@ -85,7 +85,7 @@ String Wia::getLatestDeploymentId(String name, String data) {
 
   int httpCode =  http.GET();
 
-  String result = NULL;
+  String result = "";
 
   if (httpCode == HTTP_CODE_OK) {
     result = http.getString();
