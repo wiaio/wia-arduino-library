@@ -76,3 +76,22 @@ int Wia::createEvent(String name, String data) {
 
   return httpCode;
 }
+
+String Wia::getLatestDeploymentId(String name, String data) {
+  HTTPClient http;
+
+  http.begin("http://api.wia.io/v1/firmware/latestDeploymentId");
+  http.addHeader("Authorization", "Bearer " + getAccessToken() );
+
+  int httpCode =  http.GET();
+
+  String result = NULL;
+
+  if (httpCode == HTTP_CODE_OK) {
+    result = http.getString();
+  }
+
+  http.end();
+
+  return result;
+}
