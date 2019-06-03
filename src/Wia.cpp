@@ -16,9 +16,6 @@ String Wia::getAccessToken() {
     preferences.begin("storage", true);
     _access_token = preferences.getString("secret_key");
 
-    if (_access_token != NULL) {
-      printf("Could not get access token.\n");
-    }
     preferences.end();
   }
 
@@ -30,10 +27,6 @@ String Wia::getCurrentDeploymentId() {
 
   preferences.begin("storage", true);
   String current_deployment_id = preferences.getString("deployment_id");
-
-  if (current_deployment_id != NULL) {
-    printf("Could not get current deployment id.\n");
-  }
 
   preferences.end();
 
