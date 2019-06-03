@@ -17,8 +17,12 @@ public:
   int createEvent(char* , char*);
   int createEvent(char*, int);
   int createEvent(char*, double);
-
+  
+  String getCurrentDeploymentId();
   String getLatestDeploymentId();
+
+  String getDeviceState(String key);
+  String getDeviceState(char*);
 
 private:
   String getAccessToken();

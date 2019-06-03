@@ -25,6 +25,21 @@ String Wia::getAccessToken() {
   return _access_token;
 }
 
+String Wia::getCurrentDeploymentId() {
+  Preferences preferences;
+
+  preferences.begin("storage", true);
+  String current_deployment_id = preferences.getString("deployment_id");
+
+  if (current_deployment_id != NULL) {
+    printf("Could not get current deployment id.\n");
+  }
+
+  preferences.end();
+
+  return current_deployment_id;
+}
+
 int Wia::createEvent(String name) {
   return createEvent(name, "");
 }
@@ -81,6 +96,7 @@ String Wia::getLatestDeploymentId() {
   HTTPClient http;
 
   http.begin("http://api.wia.io/v1/firmware/latestDeploymentId");
+  http.addHeader("Content-Type", "text/plain");
   http.addHeader("Authorization", "Bearer " + getAccessToken() );
 
   int httpCode =  http.GET();
@@ -89,6 +105,34 @@ String Wia::getLatestDeploymentId() {
 
   if (httpCode == HTTP_CODE_OK) {
     result = http.getString();
+  } else {
+    // USE_SERIAL.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
+  }
+
+  http.end();
+
+  return result;
+}
+
+String Wia::getDeviceState(char *key) {
+  return getDeviceState(String(key));
+}
+
+String Wia::getDeviceState(String key) {
+  HTTPClient http;
+
+  http.begin("http://api.wia.io/v1/devices/me/state/" + key);
+  http.addHeader("Content-Type", "text/plain");
+  http.addHeader("Authorization", "Bearer " + getAccessToken() );
+
+  int httpCode =  http.GET();
+
+  String result = "";
+
+  if (httpCode == HTTP_CODE_OK) {
+    result = http.getString();
+  } else {
+    // USE_SERIAL.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
   }
 
   http.end();
